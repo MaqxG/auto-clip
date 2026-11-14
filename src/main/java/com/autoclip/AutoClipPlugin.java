@@ -80,7 +80,6 @@ import net.runelite.client.util.Filepath;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageCapture;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.QuantityFormatter;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
@@ -247,9 +246,6 @@ public class AutoClipPlugin extends Plugin
 			.tooltip("Save clip")
 			.icon(iconImage)
 			.onClick(this::manualClip)
-			.popup(ImmutableMap.<String, Runnable>builder()
-				.put("Open clips folder...", this::openClipsFolder)
-				.build())
 			.build();
 
 		clientToolbar.addNavigation(titleBarButton);
@@ -279,20 +275,6 @@ public class AutoClipPlugin extends Plugin
 		lastUntradeableDropTick = -1;
 		lastLevelUpTick = -1;
 		log.debug("Auto Clip plugin stopped");
-	}
-
-	private void openClipsFolder()
-	{
-		try
-		{
-			Filepath dir = getPluginDirectory();
-			dir.createDirectories();
-			LinkBrowser.open(dir.toString());
-		}
-		catch (IOException e)
-		{
-			log.debug("Unable to open clips folder", e);
-		}
 	}
 
 	@Subscribe
